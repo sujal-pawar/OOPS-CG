@@ -1,0 +1,838 @@
+/*
+Implement a class Complex which represents the Complex Number data type. Implement 
+the following
+1. Constructor (including a default constructor which creates the complex number 0+0i).
+2. Overloaded operator+ to add two complex numbers.
+3. Overloaded operator* to multiply two complex numbers.
+4. Overloaded << and >> to print and read Complex Numbers.
+*/
+
+
+#include <iostream>
+using namespace std;
+class Complex {
+private:
+    double real;
+    double imaginary;
+
+public:
+    // Constructor with default values
+    Complex(double real = 0, double imaginary = 0) : real(real), imaginary(imaginary) {}
+
+    // Overloaded operator+ to add two complex numbers
+    Complex operator+(const Complex& other) const {
+        return Complex(real + other.real, imaginary + other.imaginary);
+    }
+
+    // Overloaded operator* to multiply two complex numbers
+    Complex operator*(const Complex& other) const {
+        return Complex((real * other.real) - (imaginary * other.imaginary), (real * other.imaginary) + (imaginary * other.real));
+    }
+
+    // Overloaded operator<< to print complex numbers
+    friend ostream& operator<<(ostream& os, const Complex& complex) {
+        os << complex.real;
+        if (complex.imaginary >= 0) {
+            os << " + " << complex.imaginary << "i";
+        } else {
+            os << " - " << -complex.imaginary << "i";
+        }
+        return os;
+    }
+
+    // Overloaded operator>> to read complex numbers
+    friend istream& operator>>(istream& is, Complex& complex) {
+        cout << "Enter real part: ";
+        is >> complex.real;
+        cout << "Enter imaginary part: ";
+        is >> complex.imaginary;
+        return is;
+    }
+};
+
+int main() {
+    Complex a, b, result;
+    
+    cout << "Enter the first complex number:" << endl;
+    cin >> a;
+
+    cout << "Enter the second complex number:" << endl;
+    cin >> b;
+
+    result = a + b;
+    cout << "Sum: " << result << endl;
+
+    result = a * b;
+    cout << "Product: " << result << endl;
+
+    return 0;
+}
+/*Created by jayesh pandey*/
+
+--------------------------------------------------------------------------
+/*
+Write a C++ program create a calculator for an arithmetic operator (+, -, *, /). The 
+program should take two operands from user and performs the operation on those two 
+operands depending upon the operator entered by user. Use a switch statement to select 
+the operation. Finally, display the result.
+*/
+
+#include <iostream>
+using namespace std;
+int main() {
+    char op;
+    double operand1, operand2, result;
+
+    // Input
+    cout << "Enter the first operand: ";
+    cin >> operand1;
+    cout << "Enter an operator (+, -, *, /): ";
+    cin >> op;
+    cout << "Enter the second operand: ";
+    cin >> operand2;
+
+    // Perform the operation based on the operator
+    switch (op) {
+        case '+':
+            result = operand1 + operand2;
+            break;
+        case '-':
+            result = operand1 - operand2;
+            break;
+        case '*':
+            result = operand1 * operand2;
+            break;
+        case '/':
+            if (operand2 != 0) {
+                result = operand1 / operand2;
+            } else {
+                cerr << "Error: Division by zero is not allowed." << std::endl;
+                return 1; // Exit with an error code
+            }
+            break;
+        default:
+            cerr << "Error: Invalid operator entered." << std::endl;
+            return 1; // Exit with an error code
+    }
+
+    // Output the result
+    cout << "Result: " << result << std::endl;
+
+    return 0;
+}
+/*Created by jayesh pandey*/
+---------------------------------------------------------------------------------
+/*
+Develop an object oriented program in C++ to create a database of student information 
+system containing the following information: Name, Roll number, Class, division, Date of 
+Birth, Blood group, Contact address, telephone number, driving license no. and other.
+Construct the database with suitable member functions for initializing and destroying the 
+data viz constructor, default constructor, Copy constructor, destructor, static member 
+functions, friend class, this pointer, inline code and dynamic memory allocation 
+operators-new and delete.
+*/
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class Student {
+private:
+    char* name;
+    int rollNumber;
+    char* className;
+    char division;
+    char* dob;
+    char* bloodGroup;
+    char* contactAddress;
+    long long phoneNumber;
+    char* licenseNumber;
+
+public:
+    // Constructor to initialize the student object
+    Student(const char* n, int roll, const char* cls, char div, const char* birth,
+            const char* blood, const char* address, long long phone, const char* license) {
+        name = new char[strlen(n) + 1];
+        strcpy(name, n);
+        rollNumber = roll;
+        className = new char[strlen(cls) + 1];
+        strcpy(className, cls);
+        division = div;
+        dob = new char[strlen(birth) + 1];
+        strcpy(dob, birth);
+        bloodGroup = new char[strlen(blood) + 1];
+        strcpy(bloodGroup, blood);
+        contactAddress = new char[strlen(address) + 1];
+        strcpy(contactAddress, address);
+        phoneNumber = phone;
+        licenseNumber = new char[strlen(license) + 1];
+        strcpy(licenseNumber, license);
+    }
+
+    // Destructor to free memory when the object is destroyed
+    ~Student() {
+        delete[] name;
+        delete[] className;
+        delete[] dob;
+        delete[] bloodGroup;
+        delete[] contactAddress;
+        delete[] licenseNumber;
+    }
+
+    // Display student information
+    void display() {
+        cout << "Name: " << name << std::endl;
+        cout << "Roll Number: " << rollNumber << std::endl;
+        cout << "Class: " << className << std::endl;
+        cout << "Division: " << division << std::endl;
+        cout << "Date of Birth: " << dob << std::endl;
+        cout << "Blood Group: " << bloodGroup << std::endl;
+        cout << "Contact Address: " << contactAddress << std::endl;
+        cout << "Phone Number: " << phoneNumber << std::endl;
+        cout << "Driving License No.: " << licenseNumber << std::endl;
+    }
+};
+
+int main() {
+    // Create a student object using the constructor
+    Student student("John Doe", 101, "Class 10", 'A', "2000-01-01", "A+", "123 Main St", 1234567890, "DL123456");
+
+    // Display student information
+    student.display();
+
+    return 0;
+}
+/*Created by jayesh pandey*/
+-----------------------------------------------------------------------------------------
+/*
+Imagine a publishing company which does marketing for book and audio cassette 
+versions. Create a class publication that stores the title (a string) and price (type float) of 
+a publication. 
+From this class derive two classes: book, which adds a page count (type int), and tape, 
+which adds a playing time in minutes (type float).
+Write a program that instantiates the book and tape classes, allows user to enter data 
+and displays the data members. If an exception is caught, replace all the data member 
+values with zero values.
+*/
+
+#include <iostream>
+#include <string>
+#include <stdexcept>
+using namespace std;
+class Publication {
+protected:
+    string title;
+    float price;
+
+public:
+    Publication() : title(""), price(0.0) {}
+
+    void getData() {
+        cout << "Enter title: ";
+        cin.ignore();
+        getline(std::cin, title);
+        cout << "Enter price: ";
+        cin >> price;
+    }
+
+    void displayData() {
+        cout << "Title: " << title << endl;
+        cout << "Price: " << price << endl;
+    }
+};
+
+class Book : public Publication {
+private:
+    int pageCount;
+
+public:
+    Book() : pageCount(0) {}
+
+    void getData() {
+        Publication::getData();
+        cout << "Enter page count: ";
+        cin >> pageCount;
+    }
+
+    void displayData() {
+        Publication::displayData();
+        cout << "Page Count: " << pageCount << endl;
+    }
+};
+
+class Tape : public Publication {
+private:
+    float playingTime;
+
+public:
+    Tape() : playingTime(0.0) {}
+
+    void getData() {
+        Publication::getData();
+        cout << "Enter playing time (minutes): ";
+        cin >> playingTime;
+    }
+
+    void displayData() {
+        Publication::displayData();
+        cout << "Playing Time: " << playingTime << " minutes" << endl;
+    }
+};
+
+int main() {
+    try {
+        Book book;
+        Tape tape;
+
+        cout << "Enter book details:" << endl;
+        book.getData();
+
+        cout << "\nEnter tape details:" << endl;
+        tape.getData();
+
+        cout << "\nBook details:" << endl;
+        book.displayData();
+
+        cout << "\nTape details:" << endl;
+        tape.displayData();
+    } catch (const exception& e) {
+        cerr << "Exception caught: " << e.what() << endl;
+        // If an exception is caught, reset data members to zero
+        Book book;
+        Tape tape;
+        cout << "Book details after exception handling:" << endl;
+        book.displayData();
+        cout << "Tape details after exception handling:" << endl;
+        tape.displayData();
+    }
+
+    return 0;
+}
+/*Created by jayesh pandey*/
+-------------------------------------------------------------------------------------
+/*
+A book shop maintains the inventory of books that are being sold at the shop. The list 
+includes details such as author, title, price, publisher and stock position. Whenever a 
+customer wants a book, the sales person inputs the title and author and the system 
+searches the list and displays whether it is available or not. If it is not, an appropriate 
+message is displayed. If it is, then the system displays the book details and requests for 
+the number of copies required. If the requested copies book details and requests for the 
+number of copies required. If the requested copies are available, the total cost of the 
+requested copies is displayed; otherwise the message Required copies not in stock is 
+displayed. Design a system using a class called books with suitable member functions and 
+Constructors. Use new operator in constructors to allocate memory space required. 
+Implement C++ program for the system.
+*/
+
+#include <iostream>
+#include <string>
+using namespace std;
+class Book {
+private:
+    string title;
+    string author;
+    double price;
+    string publisher;
+    int stock;
+
+public:
+    // Constructor to initialize a book
+    Book(const string& title, const string& author, double price, const string& publisher, int stock)
+        : title(title), author(author), price(price), publisher(publisher), stock(stock) {}
+
+    // Function to check if a book is available
+    bool isAvailable(const string& searchTitle, const string& searchAuthor) const {
+        return (title == searchTitle && author == searchAuthor && stock > 0);
+    }
+
+    // Function to calculate the cost for a given number of copies
+    double calculateCost(int copies) const {
+        return copies * price;
+    }
+
+    // Display book details
+    void display() const {
+        cout << "Title: " << title << endl;
+        cout << "Author: " << author << endl;
+        cout << "Price: $" << price << endl;
+        cout << "Publisher: " << publisher << endl;
+        cout << "Stock: " << stock << " copies" << endl;
+    }
+};
+
+int main() {
+    // Create an array to store book objects
+    const int maxBooks = 5;
+    Book books[maxBooks] = {
+        Book("Book1", "Author1", 20.0, "Publisher1", 10),
+        Book("Book2", "Author2", 25.0, "Publisher2", 5),
+        Book("Book3", "Author3", 18.0, "Publisher3", 15),
+        Book("Book4", "Author4", 30.0, "Publisher4", 8),
+        Book("Book5", "Author5", 22.0, "Publisher5", 12)
+    };
+
+    string searchTitle, searchAuthor;
+    int copies;
+
+    // Input title and author to search for a book
+    cout << "Enter the title of the book: ";
+    cin >> searchTitle;
+    cout << "Enter the author of the book: ";
+    cin >> searchAuthor;
+
+    bool bookFound = false;
+
+    // Search for the book
+    for (const Book& book : books) {
+        if (book.isAvailable(searchTitle, searchAuthor)) {
+            bookFound = true;
+            book.display();
+            cout << "Enter the number of copies required: ";
+            cin >> copies;
+
+            if (copies <= book.calculateCost(copies)) {
+                cout << "Total cost: $" << book.calculateCost(copies) << endl;
+            } else {
+                cout << "Required copies not in stock." << endl;
+            }
+        }
+    }
+
+    if (!bookFound) {
+        cout << "The book is not available in the inventory." << endl;
+    }
+
+    return 0;
+}
+/*Created by jayesh pandey*/
+----------------------------------------------------------------------------------------
+/*
+Create employee bio-data using following classes i) Personal record ii))Professional record 
+iii)Academic record Assume appropriate data members and member function to accept 
+required data & print bio-data. Create bio-data using multiple inheritance using C++.
+*/
+
+#include <iostream>
+#include <string>
+using namespace std;
+class PersonalRecord {
+protected:
+    string name;
+    int age;
+    string address;
+
+public:
+    PersonalRecord(const string& n, int a, const string& addr) : name(n), age(a), address(addr) {}
+
+    void inputPersonalData() {
+        cout << "Enter Name: ";
+        cin.ignore();
+        getline(cin, name);
+        cout << "Enter Age: ";
+        cin >> age;
+        cin.ignore(); // Consume the newline character
+        cout << "Enter Address: ";
+        getline(cin, address);
+    }
+
+    void printPersonalData() {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+        cout << "Address: " << address << endl;
+    }
+};
+
+class ProfessionalRecord {
+protected:
+    string company;
+    string jobTitle;
+    int experienceYears;
+
+public:
+    ProfessionalRecord(const string& comp, const string& title, int exp)
+        : company(comp), jobTitle(title), experienceYears(exp) {}
+
+    void inputProfessionalData() {
+        cout << "Enter Company: ";
+        getline(cin, company);
+        cout << "Enter Job Title: ";
+        getline(cin, jobTitle);
+        cout << "Enter Years of Experience: ";
+        cin >> experienceYears;
+    }
+
+    void printProfessionalData() {
+        cout << "Company: " << company << endl;
+        cout << "Job Title: " << jobTitle << endl;
+        cout << "Years of Experience: " << experienceYears << " years" << endl;
+    }
+};
+
+class AcademicRecord {
+protected:
+    string degree;
+    string university;
+    int graduationYear;
+
+public:
+    AcademicRecord(const string& deg, const string& univ, int gradYear)
+        : degree(deg), university(univ), graduationYear(gradYear) {}
+
+    void inputAcademicData() {
+        cout << "Enter Degree: ";
+        getline(cin, degree);
+        cout << "Enter University: ";
+        getline(cin, university);
+        cout << "Enter Graduation Year: ";
+        cin >> graduationYear;
+    }
+
+    void printAcademicData() {
+        cout << "Degree: " << degree << endl;
+        cout << "University: " << university << endl;
+        cout << "Graduation Year: " << graduationYear << endl;
+    }
+};
+
+class Employee : public PersonalRecord, public ProfessionalRecord, public AcademicRecord {
+public:
+    Employee(
+        const string& name, int age, const string& address,
+        const string& company, const string& jobTitle, int experienceYears,
+        const string& degree, const string& university, int graduationYear)
+        : PersonalRecord(name, age, address),
+          ProfessionalRecord(company, jobTitle, experienceYears),
+          AcademicRecord(degree, university, graduationYear) {}
+
+    void createBioData() {
+        cout << "Employee Bio-Data" << endl;
+        printPersonalData();
+        printProfessionalData();
+        printAcademicData();
+    }
+};
+
+int main() {
+    string name, address, company, jobTitle, degree, university;
+    int age, experienceYears, graduationYear;
+
+    cout << "Enter Employee Details:" << endl;
+
+    Employee employee(
+        name, age, address, company, jobTitle, experienceYears, degree, university, graduationYear);
+
+    employee.inputPersonalData();
+    employee.inputProfessionalData();
+    employee.inputAcademicData();
+
+    // Create and display the bio-data
+    employee.createBioData();
+
+    return 0;
+}
+----------------------------------------------------------------------------------------------
+/*
+Crete User defined exception to check the following conditions and throw the exception 
+if the criterion does not meet. 
+a. User has age between 18 and 55
+b. User stays has income between Rs. 50,000 – Rs. 1,00,000 per month
+c. User stays in Pune/ Mumbai/ Bangalore / Chennai
+d. User has 4-wheeler Accept age, Income, City, Vehicle from the user and check for the conditions mentioned 
+*/
+
+#include <iostream>
+#include <stdexcept>
+#include <string>
+using namespace std;
+
+class CustomException : public exception {
+private:
+    string message;
+
+public:
+    CustomException(const string& msg) : message(msg) {}
+
+    const char* what() const noexcept override {
+        return message.c_str();
+    }
+};
+
+int main() {
+    int age;
+    double income;
+    string city;
+    char vehicle;
+
+    try {
+        // Input user details
+        cout << "Enter your age: ";
+        cin >> age;
+        cout << "Enter your monthly income (in Rs.): ";
+        cin >> income;
+        cout << "Enter your city (Pune/Mumbai/Bangalore/Chennai): ";
+        cin >> city;
+        cout << "Do you have a 4-wheeler (Y/N): ";
+        cin >> vehicle;
+
+        // Check the conditions
+        if (age < 18 || age > 55) {
+            throw CustomException("Age must be between 18 and 55.");
+        }
+        if (income < 50000.0 || income > 100000.0) {
+            throw CustomException("Monthly income must be between Rs. 50,000 and Rs. 1,00,000.");
+        }
+        if (city != "Pune" && city != "Mumbai" && city != "Bangalore" && city != "Chennai") {
+            throw CustomException("You must stay in Pune, Mumbai, Bangalore, or Chennai.");
+        }
+        if (vehicle != 'Y' && vehicle != 'N') {
+            throw CustomException("Invalid choice for having a 4-wheeler.");
+        }
+
+        // If all conditions are met
+        cout << "Congratulations! You meet all the criteria." << endl;
+    } catch (const CustomException& ex) {
+        cerr << "Error: " << ex.what() << endl;
+    }
+
+    return 0;
+}
+-------------------------------------------------------------------------------------------
+/*
+Write a C++ program that creates an output file, writes information to it, closes the file 
+andopen it again as an input file and read the information from the file.
+*/
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+int main() {
+    // Create an output file and write information to it
+    ofstream outputFile("output.txt");
+    if (!outputFile.is_open()) {
+        cerr << "Failed to open the output file." << endl;
+        return 1;
+    }
+
+    string data = "This is a sample text written to the file.";
+    outputFile << data << endl;
+    outputFile.close();
+
+    // Open the same file as an input file and read the information
+    ifstream inputFile("output.txt");
+    if (!inputFile.is_open()) {
+        cerr << "Failed to open the input file." << endl;
+        return 1;
+    }
+
+    string readData;
+    while (getline(inputFile, readData)) {
+        cout << "Read from the file: " << readData << endl;
+    }
+
+    inputFile.close();
+
+    return 0;
+}
+-----------------------------------------------------------------------------------------
+/*
+Write a function template selection Sort. Write a program that inputs, sorts and outputs 
+an integer array and a float array.
+*/
+
+#include <iostream>
+using namespace std;
+
+int n;
+
+template <class T>
+void slection(T num[]) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i; j < n; j++) {
+            if (num[i] > num[j]) {
+                swap(num[i], num[j]);
+            }
+        }
+    }
+    cout<<"Swap value are: "<<endl;
+    for (int i = 0; i<n; i++) {
+        cout<<num[i]<<" ";
+    }
+}
+
+int main() {
+    cout << "Enter number of elements in the array: ";
+    cin >> n;
+
+    int a[n];
+    float b[n];
+    int num;
+
+    cout << "1. In integer 2.In float" << endl;
+    cin >> num;
+
+    if (num == 1) {
+        cout << "Enter value of integer: " << endl;
+        for (int i = 0; i < n; i++) {
+            
+            cin >> a[i];
+        }
+        slection(a);
+    } else if (num == 2) {
+        cout << "Enter value for float: " << endl;
+        for (int i = 0; i < n; i++) {
+            
+            cin >> b[i];
+        }
+        slection(b);
+    } else {
+        return 0;
+    }
+
+    return 0;
+}
+
+/*Created by jayesh pandey*/
+------------------------------------------------------------------------------------------
+/*
+Write C++ program using STL for sorting and searching with user defined records such as 
+person record(Name, DOB, Telephone number), Item record (Item code, name, 
+cost,quantity) using vector container
+*/
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+// Person record structure
+struct PersonRecord {
+    string name;
+    string dob;
+    string phoneNumber;
+};
+
+// Item record structure
+struct ItemRecord {
+    int itemCode;
+    string name;
+    double cost;
+    int quantity;
+};
+
+// Function to print a person record
+void printPersonRecord(const PersonRecord& person) {
+    cout << "Name: " << person.name << ", DOB: " << person.dob << ", Telephone: " << person.phoneNumber << endl;
+}
+
+// Function to print an item record
+void printItemRecord(const ItemRecord& item) {
+    cout << "Item Code: " << item.itemCode << ", Name: " << item.name << ", Cost: " << item.cost << ", Quantity: " << item.quantity << endl;
+}
+
+int main() {
+    vector<PersonRecord> personRecords;
+    vector<ItemRecord> itemRecords;
+
+    // Input person records
+    personRecords.push_back({ "Alice", "1990-01-15", "123-456-7890" });
+    personRecords.push_back({ "Bob", "1985-05-20", "987-654-3210" });
+    personRecords.push_back({ "Charlie", "1995-08-10", "111-222-3333" });
+
+    // Input item records
+    itemRecords.push_back({ 101, "Book", 15.99, 50 });
+    itemRecords.push_back({ 102, "Laptop", 899.99, 10 });
+    itemRecords.push_back({ 103, "Phone", 399.99, 20 });
+
+    // Sort person records by name
+    sort(personRecords.begin(), personRecords.end(), [](const PersonRecord& a, const PersonRecord& b) {
+        return a.name < b.name;
+    });
+
+    // Sort item records by item code
+    sort(itemRecords.begin(), itemRecords.end(), [](const ItemRecord& a, const ItemRecord& b) {
+        return a.itemCode < b.itemCode;
+    });
+
+    // Print sorted records
+    cout << "Sorted Person Records:" << endl;
+    for (const auto& person : personRecords) {
+        printPersonRecord(person);
+    }
+
+    cout << "\nSorted Item Records:" << endl;
+    for (const auto& item : itemRecords) {
+        printItemRecord(item);
+    }
+
+    // Search for a person by name
+    string searchName = "Bob";
+    auto personIt = find_if(personRecords.begin(), personRecords.end(), [&searchName](const PersonRecord& person) {
+        return person.name == searchName;
+    });
+
+    if (personIt != personRecords.end()) {
+        cout << "\nFound Person Record:" << endl;
+        printPersonRecord(*personIt);
+    } else {
+        cout << "\nPerson not found." << endl;
+    }
+
+    // Search for an item by item code
+    int searchItemCode = 102;
+    auto itemIt = find_if(itemRecords.begin(), itemRecords.end(), [&searchItemCode](const ItemRecord& item) {
+        return item.itemCode == searchItemCode;
+    });
+
+    if (itemIt != itemRecords.end()) {
+        cout << "\nFound Item Record:" << endl;
+        printItemRecord(*itemIt);
+    } else {
+        cout << "\nItem not found." << endl;
+    }
+
+    return 0;
+}
+/*Created by jayesh pandey*/
+----------------------------------------------------------------------------------------
+/*
+Write a program in C++ to use map associative container. The keys will be the names of 
+states, and the values will be the populations of the states. When the program runs, the 
+user is prompted to type the name of a state. The program then looks in the map, using 
+the state name as an index, and returns the population of the state.
+*/
+
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+int main() {
+    map<string, long long> statePopulations;
+
+    // Populate the map with state names and populations
+    statePopulations["California"] = 39538223; // Example population for California
+    statePopulations["Texas"] = 29145505;      // Example population for Texas
+    statePopulations["New York"] = 20380482;   // Example population for New York
+    statePopulations["Florida"] = 21538187;    // Example population for Florida
+    // Add more states and populations as needed
+
+    string stateName;
+
+    // Prompt the user to enter a state name
+    cout << "Enter the name of a state: ";
+    getline(cin, stateName);
+
+    // Look up the state population in the map
+    auto it = statePopulations.find(stateName);
+
+    if (it != statePopulations.end()) {
+        // State found, print its population
+        cout << "The population of " << stateName << " is " << it->second << " people." << endl;
+    } else {
+        // State not found in the map
+        cout << "State not found in the database." << endl;
+    }
+
+    return 0;
+}
+/*Created by jayesh pandey*/
